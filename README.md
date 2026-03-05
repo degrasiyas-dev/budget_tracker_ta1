@@ -1,16 +1,47 @@
-# budget_tracker_ta1
+# Track Your Budget
 
-A new Flutter project.
+Track Your Budget is a simple and user-friendly mobile application built using Flutter.  
+This app allows users to record income and expenses, monitor their total balance, and manage their daily finances efficiently.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Project Description
 
-A few resources to get you started if this is your first Flutter project:
+This application was developed as a group project for academic purposes.  
+The goal of the project is to create a functional budgeting app that demonstrates CRUD operations, state management, and clean UI design using Flutter.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The system allows users to:
+- Add income transactions
+- Add expense transactions
+- View all transaction history
+- Automatically calculate total balance
+- Delete transactions
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## Features
+
+- Add Income
+- Add Expense
+- View Transaction List
+- Real-time Balance Calculation
+- Delete Transactions
+- Responsive UI Design
+
+---
+
+## Group Members
+
+- Divine Grace D. Castillo – Team Leader/Coordinator
+- Bianca Nicole A. Mesina – UI/UX Designer
+- Natalie J. Javier – State Management Developer
+- Dan Dexter E. Permejo – Frontend Developer
+- Thria Royella P. Penamante - Documentation/Reporter
+
+---
+
+## Course Information
+
+Course: Bachelor of Science in Information Technology  
+Section: 3.1 BSIT
+Project Type: Terminal Assessment 1 in Advanced Mobile Application
