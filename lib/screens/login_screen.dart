@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
       passwordController.text,
     );
 
+    if (!mounted) return;
+
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid login")),

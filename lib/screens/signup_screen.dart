@@ -23,7 +23,9 @@ class _SignupScreenState extends State<SignupScreen> {
       passwordController.text,
     );
 
-    Navigator.pop(context);
+    if (mounted) {
+      Navigator.pop(context);
+    }
   }
 
   @override

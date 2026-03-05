@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 import '../models/transaction_model.dart';
 import '../utils/categories.dart';
+import 'package:intl/intl.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -17,7 +18,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   String selectedCategory = "";
 
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
 
   final amountController = TextEditingController();
 
@@ -25,7 +26,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
     );
@@ -39,13 +40,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   void saveTransaction() {
 
-    if (amountController.text.isEmpty || selectedCategory.isEmpty) return;
+    if (amountController.text.isEmpty || selectedCategory.isEmpty || selectedDate == null) return;
 
     final transaction = TransactionModel(
       id: DateTime.now().toString(),
       amount: double.parse(amountController.text),
       category: selectedCategory,
-      date: selectedDate,
+      date: selectedDate!,
       type: type,
     );
 
@@ -131,7 +132,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             ElevatedButton(
               onPressed: pickDate,
               child: Text(
-                "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                selectedDate == null ? "mm/dd/yy" : DateFormat('MM/dd/yy').format(selectedDate!),
               ),
             ),
 

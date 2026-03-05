@@ -50,4 +50,18 @@ class AuthProvider with ChangeNotifier {
     _isLoggedIn = false;
     notifyListeners();
   }
+
+  Future<void> updateUserName(String newName) async {
+    if (_user == null) return;
+
+    _user = UserModel(
+      name: newName,
+      email: _user!.email,
+      password: _user!.password,
+    );
+
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", jsonEncode(_user!.toMap()));
+    notifyListeners();
+  }
 }
