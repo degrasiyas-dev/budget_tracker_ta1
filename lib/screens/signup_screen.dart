@@ -44,10 +44,14 @@ class _SignupScreenState extends State<SignupScreen> {
               decoration: const InputDecoration(labelText: "Name"),
             ),
 
+            const SizedBox(height: 20),
+
             TextField(
               controller: emailController,
               decoration: const InputDecoration(labelText: "Email"),
             ),
+
+            const SizedBox(height: 20),
 
             TextField(
               controller: passwordController,
@@ -55,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
               obscureText: true,
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
 
             ElevatedButton(
               onPressed: signup,

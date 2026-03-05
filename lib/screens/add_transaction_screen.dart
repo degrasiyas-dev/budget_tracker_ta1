@@ -100,19 +100,18 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
             const Text("Category"),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
 
             Wrap(
               spacing: 10,
+              runSpacing: 10,
               children: categories.map((cat) {
 
                 bool selected = selectedCategory == cat;
 
                 return ChoiceChip(
                   label: Text(cat),
-
                   selected: selected,
-
                   onSelected: (_) {
                     setState(() {
                       selectedCategory = cat;
@@ -123,11 +122,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
               }).toList(),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 25),
 
             const Text("Date"),
 
-            const SizedBox(height: 5),
+            const SizedBox(height: 15),
 
             ElevatedButton(
               onPressed: pickDate,
