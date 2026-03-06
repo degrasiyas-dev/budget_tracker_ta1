@@ -26,32 +26,36 @@ class ChartWidget extends StatelessWidget {
 
     final total = data.values.fold(0.0, (a, b) => a + b);
 
-    final sections = data.entries.map((e) {
+    // Assign colors to categories
+    final Map<String, Color> categoryColors = {
+      'Food': Colors.red,
+      'Transportation': Colors.blue,
+      // Add more categories and colors as needed
+    };
 
+    final sections = data.entries.map((e) {
+      final color = categoryColors[e.key] ?? Colors.teal;
       return PieChartSectionData(
         value: e.value,
-        title: "",
+        color: color,
+        title: '',
         radius: 70,
       );
-
     }).toList();
 
     return Column(
       children: [
-
         SizedBox(
           height: 220,
           child: Stack(
             alignment: Alignment.center,
             children: [
-
               PieChart(
                 PieChartData(
                   sections: sections,
                   centerSpaceRadius: 50,
                 ),
               ),
-
               Text(
                 "₱${total.toStringAsFixed(2)}",
                 style: const TextStyle(
@@ -60,7 +64,23 @@ class ChartWidget extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
+        const SizedBox(height: 10),
+        // Legend
+        Wrap(
+          spacing: 16,
+          children: data.keys.map((category) {
+            final color = categoryColors[category] ?? Colors.teal;
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.circle, color: color, size: 16),
+                const SizedBox(width: 4),
+                Text(category),
+              ],
+            );
+          }).toList(),
+        ),
       ],
     );
   }

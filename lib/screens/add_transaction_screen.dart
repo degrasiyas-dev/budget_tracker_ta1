@@ -103,25 +103,26 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             const SizedBox(height: 15),
 
             Wrap(
-              spacing: 10,
-              children: categories.map((cat) {
-
-                bool selected = selectedCategory == cat;
-
-                return ChoiceChip(
-                  label: Text(cat),
-
-                  selected: selected,
-
-                  onSelected: (_) {
-                    setState(() {
-                      selectedCategory = cat;
-                    });
-                  },
-                );
-
-              }).toList(),
-            ),
+                spacing: 6,  // Reduced from 10 to 6 for tighter horizontal spacing
+                runSpacing: 6,  // Added vertical spacing between rows, set to 6
+                children: categories.map((cat) {
+                  bool selected = selectedCategory == cat;
+                  return ChoiceChip(
+                    label: Text(
+                      cat,
+                      style: TextStyle(fontSize: 12),  // Smaller font size
+                    ),
+                    selected: selected,
+                    visualDensity: VisualDensity.compact,  // Reduces padding inside the chip
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,  // Shrinks touch target
+                    onSelected: (_) {
+                      setState(() {
+                        selectedCategory = cat;
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
 
             const SizedBox(height: 25),
 
@@ -141,7 +142,25 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: saveTransaction,
+                onPressed: () {
+                  if (amountController.text.isNotEmpty && selectedCategory.isNotEmpty && selectedDate != null) {
+                    // Save the expense logic here
+                    final transaction = TransactionModel(
+                      id: DateTime.now().toString(),
+                      amount: double.parse(amountController.text),
+                      category: selectedCategory,
+                      date: selectedDate!,
+                      type: type,
+                    );
+                    context.read<TransactionProvider>().addTransaction(transaction);
+                    Navigator.pop(context);
+                  } else {
+                    // Show an error message if fields are empty
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Please fill in all fields")),
+                    );
+                  }
+                },
                 child: Text(
                   type == "expense"
                       ? "Save Expense"

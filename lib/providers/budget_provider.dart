@@ -4,9 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/budget_model.dart';
 
 class BudgetProvider with ChangeNotifier {
-
   List<BudgetModel> _budgets = [];
-
   List<BudgetModel> get budgets => _budgets;
 
   BudgetProvider() {
@@ -14,44 +12,48 @@ class BudgetProvider with ChangeNotifier {
   }
 
   Future<void> addBudget(BudgetModel budget) async {
-
     _budgets.add(budget);
-
     await saveBudgets();
-
     notifyListeners();
   }
 
   Future<void> deleteBudget(String id) async {
-
     _budgets.removeWhere((b) => b.id == id);
-
     await saveBudgets();
-
     notifyListeners();
   }
 
   Future<void> saveBudgets() async {
-
     final prefs = await SharedPreferences.getInstance();
-
     List<String> data =
         _budgets.map((b) => jsonEncode(b.toMap())).toList();
-
     prefs.setStringList("budgets", data);
   }
 
   Future<void> loadBudgets() async {
-
     final prefs = await SharedPreferences.getInstance();
-
     final data = prefs.getStringList("budgets");
-
     if (data != null) {
       _budgets =
           data.map((e) => BudgetModel.fromMap(jsonDecode(e))).toList();
     }
-
     notifyListeners();
+  }
+
+  void updateSavedAmount(int index, double newAmount) {
+    if (index >= 0 && index < _budgets.length) {
+      final old = _budgets[index];
+      _budgets[index] = BudgetModel(
+        id: old.id,
+        name: old.name,
+        amount: old.amount,
+        type: old.type,
+        category: old.category,
+        period: old.period,
+        savedAmount: newAmount,
+      );
+      saveBudgets();
+      notifyListeners();
+    }
   }
 }

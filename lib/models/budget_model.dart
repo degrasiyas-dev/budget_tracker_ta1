@@ -5,6 +5,7 @@ class BudgetModel {
   final String type;
   final String category;
   final String period;
+  final double savedAmount;
 
   BudgetModel({
     required this.id,
@@ -13,6 +14,7 @@ class BudgetModel {
     required this.type,
     required this.category,
     required this.period,
+    this.savedAmount = 0,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class BudgetModel {
       'type': type,
       'category': category,
       'period': period,
+      'savedAmount': savedAmount,
     };
   }
 
@@ -34,6 +37,7 @@ class BudgetModel {
       type: map['type'],
       category: map['category'],
       period: map['period'],
+      savedAmount: map['savedAmount'] ?? 0,
     );
   }
 }
