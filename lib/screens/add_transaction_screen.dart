@@ -102,25 +102,26 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
             const SizedBox(height: 10),
 
             Wrap(
-              spacing: 10,
-              children: categories.map((cat) {
-
-                bool selected = selectedCategory == cat;
-
-                return ChoiceChip(
-                  label: Text(cat),
-
-                  selected: selected,
-
-                  onSelected: (_) {
-                    setState(() {
-                      selectedCategory = cat;
-                    });
-                  },
-                );
-
-              }).toList(),
-            ),
+                spacing: 6,  
+                runSpacing: 6,  
+                children: categories.map((cat) {
+                  bool selected = selectedCategory == cat;
+                  return ChoiceChip(
+                    label: Text(
+                      cat,
+                      style: TextStyle(fontSize: 12),  
+                    ),
+                    selected: selected,
+                    visualDensity: VisualDensity.compact,  
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,  
+                    onSelected: (_) {
+                      setState(() {
+                        selectedCategory = cat;
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
 
             const SizedBox(height: 20),
 

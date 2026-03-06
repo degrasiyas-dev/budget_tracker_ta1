@@ -68,7 +68,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
             const SizedBox(height: 20),
 
             DropdownButtonFormField(
-              value: type,
+              initialValue: type,
               items: const [
                 DropdownMenuItem(
                   value: "expense",
@@ -89,7 +89,7 @@ class _AddBudgetScreenState extends State<AddBudgetScreen> {
             const SizedBox(height: 20),
 
             DropdownButtonFormField(
-              value: period,
+              initialValue: period,
               items: const [
                 DropdownMenuItem(
                   value: "This Week",
