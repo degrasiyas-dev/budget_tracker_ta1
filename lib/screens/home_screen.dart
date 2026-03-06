@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(15),
 
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 5)

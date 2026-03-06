@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
       passwordController.text,
     );
 
+    if (!mounted) return;
+
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Invalid login")),
@@ -53,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             TextField(
               controller: passwordController,
@@ -63,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
 
             ElevatedButton(
               onPressed: login,

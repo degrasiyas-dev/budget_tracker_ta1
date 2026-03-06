@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/transaction_provider.dart';
 import '../models/transaction_model.dart';
 import '../utils/categories.dart';
+import 'package:intl/intl.dart';
 
 class AddTransactionScreen extends StatefulWidget {
   const AddTransactionScreen({super.key});
@@ -17,7 +18,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   String selectedCategory = "";
 
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
 
   final amountController = TextEditingController();
 
@@ -25,7 +26,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(2020),
       lastDate: DateTime(2030),
     );
@@ -39,13 +40,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
   void saveTransaction() {
 
-    if (amountController.text.isEmpty || selectedCategory.isEmpty) return;
+    if (amountController.text.isEmpty || selectedCategory.isEmpty || selectedDate == null) return;
 
     final transaction = TransactionModel(
       id: DateTime.now().toString(),
       amount: double.parse(amountController.text),
       category: selectedCategory,
-      date: selectedDate,
+      date: selectedDate!,
       type: type,
     );
 
@@ -99,40 +100,39 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
             const Text("Category"),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
 
             Wrap(
-                spacing: 6,  
-                runSpacing: 6,  
-                children: categories.map((cat) {
-                  bool selected = selectedCategory == cat;
-                  return ChoiceChip(
-                    label: Text(
-                      cat,
-                      style: TextStyle(fontSize: 12),  
-                    ),
-                    selected: selected,
-                    visualDensity: VisualDensity.compact,  
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,  
-                    onSelected: (_) {
-                      setState(() {
-                        selectedCategory = cat;
-                      });
-                    },
-                  );
-                }).toList(),
-              ),
+              spacing: 10,
+              children: categories.map((cat) {
 
-            const SizedBox(height: 20),
+                bool selected = selectedCategory == cat;
+
+                return ChoiceChip(
+                  label: Text(cat),
+
+                  selected: selected,
+
+                  onSelected: (_) {
+                    setState(() {
+                      selectedCategory = cat;
+                    });
+                  },
+                );
+
+              }).toList(),
+            ),
+
+            const SizedBox(height: 25),
 
             const Text("Date"),
 
-            const SizedBox(height: 5),
+            const SizedBox(height: 15),
 
             ElevatedButton(
               onPressed: pickDate,
               child: Text(
-                "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+                selectedDate == null ? "mm/dd/yy" : DateFormat('MM/dd/yy').format(selectedDate!),
               ),
             ),
 
